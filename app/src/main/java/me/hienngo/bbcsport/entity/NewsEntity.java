@@ -1,17 +1,30 @@
-package me.hienngo.bbcsport.model;
+package me.hienngo.bbcsport.entity;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * @author hienngo
  * @since 1/31/18
  */
-
+@Entity(tableName = "news")
 public class NewsEntity {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String news;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
     private String publishedAt;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNews() {
         return news;
