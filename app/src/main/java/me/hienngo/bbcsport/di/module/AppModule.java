@@ -1,16 +1,12 @@
 package me.hienngo.bbcsport.di.module;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
 import android.content.Context;
-
-import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.hienngo.bbcsport.db.AppDatabase;
 
 /**
  * @author hienngo
@@ -27,16 +23,6 @@ public class AppModule {
     @Singleton @Provides
     public Context provideContext() {
         return this.context;
-    }
-
-    @Singleton @Provides
-    public Gson provideGson() {
-        return new Gson();
-    }
-
-    @Singleton @Provides
-    public AppDatabase provideAppDatabase(Application application) {
-        return Room.databaseBuilder(application, AppDatabase.class, "bbc-sport").build();
     }
 
 }

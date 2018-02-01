@@ -1,6 +1,7 @@
 package me.hienngo.bbcsport.db;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface NewsDao {
 
     @Query("delete from news")
     void deleteAll();
+
+    @Insert
+    void add(List<NewsEntity> newsEntities);
 }

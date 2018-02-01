@@ -9,12 +9,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "API_KEY", "\"5a22ef002d814e89a0ecd3e207fb8378\""
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -27,9 +32,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -38,6 +43,7 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
 
     testImplementation 'junit:junit:4.12'
