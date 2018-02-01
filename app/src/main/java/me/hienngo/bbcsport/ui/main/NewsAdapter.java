@@ -15,6 +15,7 @@ import java.util.List;
 
 import me.hienngo.bbcsport.R;
 import me.hienngo.bbcsport.model.NewsModel;
+import me.hienngo.bbcsport.ui.detail.WebviewActivity;
 
 /**
  * @author hienngo
@@ -41,6 +42,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         holder.timestampView.setText(model.getTimestamp());
         holder.descView.setText(model.getDescription());
         Picasso.with(context).load(model.getImageUrl()).fit().centerCrop().into(holder.imageView);
+
+        holder.itemView.setOnClickListener(view -> WebviewActivity.open(context, model.getTitle(), model.getWebUrl()));
     }
 
     @Override
