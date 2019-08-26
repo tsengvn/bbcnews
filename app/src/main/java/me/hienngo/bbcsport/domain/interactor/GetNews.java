@@ -1,10 +1,13 @@
 package me.hienngo.bbcsport.domain.interactor;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import me.hienngo.bbcsport.BuildConfig;
@@ -22,6 +25,7 @@ public class GetNews {
     private final NewsApiRepo newsApiRepo;
     private final NewsDao newsDao;
     private BehaviorSubject<List<NewsModel>> behaviorSubject = BehaviorSubject.create();
+    private BehaviorSubject<String> searchKeys = BehaviorSubject.create();
 
     public GetNews(NewsApiRepo newsApiRepo, AppDatabase appDatabase) {
         this.newsApiRepo = newsApiRepo;
@@ -63,4 +67,22 @@ public class GetNews {
     }
 
 
+//    public Single<List<NewsModel>> search(String query) {
+//        searchKeys.onNext(query.toString());
+//        return searchKeys.hide().debounce(500, TimeUnit.MILLISECONDS)
+//                .map(this::doSearch);
+//
+//
+//    }
+
+
+    public Single<List<NewsModel>> search(String query) {
+        return getData(false)
+                .subscribeOn(Schedulers.io())
+                .take(1)
+                .flatMap(newsModels -> Flowable.fromArray(newsModels.toArray(new NewsModel[newsModels.size()])))
+                .filter(newsModel -> newsModel.getDescription().contains(query) || newsModel.getTitle().contains(query))
+                .doOnNext(newsModel -> Log.v("@nmh" , "title " + newsModel.getTitle()))
+                .toList();
+    }
 }

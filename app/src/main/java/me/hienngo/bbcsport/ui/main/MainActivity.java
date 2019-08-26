@@ -1,12 +1,15 @@
 package me.hienngo.bbcsport.ui.main;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
     MainPresenter mainPresenter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,26 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
         bindViews();
         mainPresenter.onReceiveView(this);
         mainPresenter.loadData(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home, menu);
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.v("@nmh", "query " + newText);
+                mainPresenter.search(searchView.getQuery());
+                return true;
+            }
+        });
+        return true;
     }
 
     @Override
@@ -57,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements MainView, SwipeRe
 
     @Override
     public void onReceivedData(List<NewsModel> newsModels) {
+        Log.v("@nmh", "onReceivedData " + newsModels.size());
         NewsAdapter newsAdapter = (NewsAdapter) recyclerView.getAdapter();
         newsAdapter.setData(newsModels);
         swipeRefreshLayout.setRefreshing(false);

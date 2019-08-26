@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BBC Sport</string>
     <string name="error_message">There is some error occured, please try again!</string>
+    <string name="search_title">search</string>
 </resources>
