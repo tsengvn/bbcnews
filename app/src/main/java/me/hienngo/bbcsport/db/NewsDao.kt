@@ -12,6 +12,9 @@ import me.hienngo.bbcsport.entity.NewsEntity
  */
 @Dao
 interface NewsDao {
+    @Query("SELECT * FROM news WHERE title=:title AND author=:author AND publishedAt=:publishedAt LIMIT 1")
+    fun get(title: String, author: String, publishedAt: String) : NewsEntity?
+
     @Query("select * from news")
     fun getAll(): Single<List<NewsEntity>>
 

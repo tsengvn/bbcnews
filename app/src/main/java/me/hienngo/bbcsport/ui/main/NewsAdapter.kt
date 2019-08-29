@@ -10,11 +10,9 @@ import android.widget.TextView
 
 import com.squareup.picasso.Picasso
 
-import java.util.ArrayList
-
 import me.hienngo.bbcsport.R
 import me.hienngo.bbcsport.model.NewsModel
-import me.hienngo.bbcsport.ui.detail.WebviewActivity
+import me.hienngo.bbcsport.ui.detail.DetailActivity
 
 /**
  * @author hienngo
@@ -34,7 +32,7 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
         holder.descView.text = model.description
         Picasso.with(context).load(model.imageUrl).fit().centerCrop().into(holder.imageView)
 
-        holder.itemView.setOnClickListener { view -> WebviewActivity.open(context, model.title, model.webUrl) }
+        holder.itemView.setOnClickListener { view -> DetailActivity.open(context, model.title, model.author, model.publishedAt) }
     }
 
     override fun getItemCount(): Int {

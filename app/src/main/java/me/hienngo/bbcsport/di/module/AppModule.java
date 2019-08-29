@@ -10,7 +10,6 @@ import dagger.Provides;
 
 /**
  * @author hienngo
- * @since 9/29/17
  */
 @Module
 public class AppModule {

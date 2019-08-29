@@ -12,6 +12,8 @@ import dagger.Provides;
 import me.hienngo.bbcsport.BuildConfig;
 import me.hienngo.bbcsport.db.AppDatabase;
 import me.hienngo.bbcsport.domain.interactor.GetNews;
+import me.hienngo.bbcsport.domain.interactor.GetNewsDetail;
+import me.hienngo.bbcsport.domain.repo.MovideApiRepo;
 import me.hienngo.bbcsport.domain.repo.NewsApiRepo;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -21,11 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author hienngo
- * @since 9/29/17
  */
 @Module
 public class DataModule {
-    private static final String END_POINT = "https://newsapi.org/v2/";
+//    private static final String END_POINT = "https://newsapi.org/v2/";
+    private static final String END_POINT = "https://api.themoviedb.org/3/";
 
     @Singleton @Provides
     public OkHttpClient provideHttpClient() {
@@ -37,13 +39,13 @@ public class DataModule {
     }
 
     @Singleton @Provides
-    public NewsApiRepo provideNewsApiRepo(OkHttpClient okHttpClient) {
+    public MovideApiRepo provideApiRepo(OkHttpClient okHttpClient) {
         return new Retrofit.Builder().baseUrl(END_POINT)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-                .create(NewsApiRepo.class);
+                .create(MovideApiRepo.class);
     }
 
     @Singleton @Provides
@@ -61,4 +63,8 @@ public class DataModule {
         return new GetNews(newsApiRepo, appDatabase);
     }
 
+    @Singleton @Provides
+    public GetNewsDetail provideGetNewsDetail(AppDatabase appDatabase) {
+        return new GetNewsDetail(appDatabase);
+    }
 }

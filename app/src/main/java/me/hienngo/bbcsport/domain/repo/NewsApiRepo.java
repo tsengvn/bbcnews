@@ -6,7 +6,6 @@ import retrofit2.http.Query;
 
 /**
  * @author hienngo
- * @since 1/31/18
  */
 
 public interface NewsApiRepo {

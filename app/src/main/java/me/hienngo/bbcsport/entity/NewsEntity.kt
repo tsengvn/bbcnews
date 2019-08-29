@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "news", primaryKeys = ["title", "author", "publishedAt"])
 class NewsEntity {
+    var id: Int = 0
     var news: String? = null
     var title: String = ""
     var author: String = ""

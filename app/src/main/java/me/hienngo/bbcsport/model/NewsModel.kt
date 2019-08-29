@@ -8,7 +8,9 @@ import me.hienngo.bbcsport.util.DateTimeUtil
  */
 
 data class NewsModel(private val newsEntity: NewsEntity) {
-    val title: String = newsEntity.title ?: "No Title"
+    val title: String = newsEntity.title
+    val author: String = newsEntity.author
+    val publishedAt: String = newsEntity.publishedAt
     val description: String = newsEntity.description ?: ""
     val timestamp: String = DateTimeUtil.parseTimestamp(newsEntity.publishedAt)
     val imageUrl: String? = newsEntity.urlToImage

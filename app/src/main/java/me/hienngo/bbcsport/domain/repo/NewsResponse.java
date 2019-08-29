@@ -6,7 +6,6 @@ import me.hienngo.bbcsport.entity.NewsEntity;
 
 /**
  * @author hienngo
- * @since 2/1/18
  */
 
 public class NewsResponse {
